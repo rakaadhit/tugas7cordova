@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var nama = $("#nama").val();
+            var harga = $("#harga").val();
+            var jumlah = $("#jumlah").val();
+            var nomormeja = $("#nomormeja").val();
+            var dataString = "nama=" + nama + "&harga=" + harga + "&jumlah=" + jumlah + "&nomormeja=" + nomormeja + "&insert=";
+            if ($.trim(nama).length > 0 & $.trim(harga).length > 0 & $.trim(jumlah).length & $.trim(nomormeja).length > 0 > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://rakadotcom.000webhostapp.com/appcordovaraka/www/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("berhasil");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Pesan Makanan</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Pesanan</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>Masukkan Pesanan</label>
+            <input type="text" id="nama" value="" />
+        </div>
+        <div class="item">
+            <label>Harga Makanan</label>
+            <input type="text" id="harga" value="" />
+        </div>
+        <div class="item">
+            <label>Jumlah Makanan</label>
+            <input type="text" id="jumlah" value="" />
+        </div>
+        <div class="item">
+            <label>Nomor Meja</label>
+            <input type="text" id="nomormeja" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Kirim Pesanan " />
+        </div>
+    </div>
+</body>
+
+</html>
